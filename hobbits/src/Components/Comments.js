@@ -13,7 +13,7 @@ function Comments({ match, history }) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4000/api/posts/${id}`)
+            .get(`https://nodeproject-4.herokuapp.com/api/posts/${id}`)
             .then(res => {
                 setPost(res.data);
             })
@@ -22,7 +22,7 @@ function Comments({ match, history }) {
             });
 
         axios
-            .get(`http://localhost:4000/api/posts/${id}/comments`)
+            .get(`https://nodeproject-4.herokuapp.com/api/posts/${id}/comments`)
             .then(res => {
                 setComments(res.data);
             })
@@ -43,16 +43,16 @@ function Comments({ match, history }) {
     };
 
     const submitHandler = (e) => {
-      e.preventDefault();
-      axios
-          .post(`http://localhost:4000/api/posts/${id}/comments`, newComment)
-          .then(res => {
-              console.log(res);
-              history.push('/')
-          })
-          .catch(err => {
-              console.log(err)
-          })
+        e.preventDefault();
+        axios
+            .post(`https://nodeproject-4.herokuapp.com/api/posts/${id}/comments`, newComment)
+            .then(res => {
+                console.log(res);
+                history.push('/')
+            })
+            .catch(err => {
+                console.log(err)
+            })
     };
 
     if (!post || !comments) {
@@ -64,10 +64,10 @@ function Comments({ match, history }) {
     return (
         <div className="commentComponent">
             <div className="post">
-           <h1 className="postTitle">{post[0].title}</h1>
-            <h1 className="postTitle">{post[0].contents}</h1>
+                <h1 className="postTitle">{post[0].title}</h1>
+                <h1 className="postTitle">{post[0].contents}</h1>
             </div>
-                {comments.map((item) => {
+            {comments.map((item) => {
                 return (
                     <div className="card comment" key={item.id}>
                         <h1>{item.text}</h1>
@@ -80,8 +80,8 @@ function Comments({ match, history }) {
                        placeholder="Enter new comment"
                        value={newComment.text}
                        onChange={changeHandler}
-                       />
-                       <button className="submit" type="submit">Submit</button>
+                />
+                <button className="submit" type="submit">Submit</button>
             </form>
             <Link className="btn nav" to={"/"}>Back</Link>
         </div>

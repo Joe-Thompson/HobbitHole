@@ -13,7 +13,7 @@ function UpdatePost({ match, history }) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:4000/api/posts/${id}`)
+            .get(`https://nodeproject-4.herokuapp.com/api/posts/${id}`)
             .then(res => {
                 setPost(res.data);
             })
@@ -23,33 +23,33 @@ function UpdatePost({ match, history }) {
     },[]);
 
     const changeHandler = (e) => {
-      e.preventDefault();
-      setNewPost({
-          ...newPost,
-          [e.target.name]: e.target.value
-      });
+        e.preventDefault();
+        setNewPost({
+            ...newPost,
+            [e.target.name]: e.target.value
+        });
     };
 
     const submitHandler = (e) => {
-      e.preventDefault();
-      if (!newPost.title || !newPost.contents) {
-          window.alert("All fields are required to continue")
-      } else {
-      axios
-          .put(`http://localhost:4000/api/posts/${id}`, newPost)
-          .then(res => {
-              console.log(res);
-              history.push("/")
-          })
-          .catch(err => {
-              console.log(err)
-          })
-    }};
+        e.preventDefault();
+        if (!newPost.title || !newPost.contents) {
+            window.alert("All fields are required to continue")
+        } else {
+            axios
+                .put(`https://nodeproject-4.herokuapp.com/api/posts/${id}`, newPost)
+                .then(res => {
+                    console.log(res);
+                    history.push("/")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }};
 
     const handleDelete = (e) => {
         e.preventDefault();
         axios
-            .delete(`http://localhost:4000/api/posts/${id}`)
+            .delete(`https://nodeproject-4.herokuapp.com/api/posts/${id}`)
             .then(res => {
                 console.log(res);
                 history.push("/")
@@ -66,15 +66,15 @@ function UpdatePost({ match, history }) {
     return (
         <div className="updateComponent">
             <div className="card update">
-            <h1>{post[0].title}</h1>
-            <h1>{post[0].contents}</h1>
+                <h1>{post[0].title}</h1>
+                <h1>{post[0].contents}</h1>
             </div>
             <form className="createForm" onSubmit={submitHandler}>
                 <input className="input" type="text" name="title" placeholder="Please enter a title..." value={newPost.title} onChange={changeHandler} />
                 <input className="input" type="text" name="contents" placeholder="Please enter content" value={newPost.contents} onChange={changeHandler} />
                 <button className="submit" type="submit">Submit</button>
             </form>
-        <button className="btn nav delete" onClick={handleDelete} value={post[0].id}>Delete</button>
+            <button className="btn nav delete" onClick={handleDelete} value={post[0].id}>Delete</button>
             <Link className="btn nav back" to="/">Back</Link>
         </div>
     )

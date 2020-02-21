@@ -12,7 +12,7 @@ function Dashboard() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:4000/api/posts")
+            .get("https://nodeproject-4.herokuapp.com/api/posts")
             .then(res => {
                 setPosts(res.data)
             })
@@ -22,24 +22,24 @@ function Dashboard() {
     },[]);
 
     const changeHandler = (e) => {
-      e.preventDefault();
-      setNewPost({
-          ...newPost,
-          [e.target.name]: e.target.value
-      })
+        e.preventDefault();
+        setNewPost({
+            ...newPost,
+            [e.target.name]: e.target.value
+        })
     };
 
     const submitHandler = (e) => {
-      e.preventDefault();
-      axios
-          .post("http://localhost:4000/api/posts", newPost)
-          .then(res => {
-              console.log(res);
-              window.location.reload();
-          })
-          .catch(err => {
-              console.log(err)
-          })
+        e.preventDefault();
+        axios
+            .post("https://nodeproject-4.herokuapp.com/api/posts", newPost)
+            .then(res => {
+                console.log(res);
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
     };
 
@@ -47,7 +47,7 @@ function Dashboard() {
         return (
             <h1 className="title">Loading....</h1>
         )}
-        return (
+    return (
         <div>
             <h1 className="title">Middle Earth - Who's line is it?</h1>
 
@@ -61,12 +61,12 @@ function Dashboard() {
             {posts.map((item) => {
                 return (
                     <div className="container">
-                    <div className="card" key={item.id}>
-                        <h1>{item.title}</h1>
-                        <h2>{item.contents}</h2>
-                        <Link className="btn" to={`/updatePost/${item.id}`}>Update</Link>
-                        <Link className="btn" to={`/comments/${item.id}`}>View Comments</Link>
-                    </div>
+                        <div className="card" key={item.id}>
+                            <h1>{item.title}</h1>
+                            <h2>{item.contents}</h2>
+                            <Link className="btn" to={`/updatePost/${item.id}`}>Update</Link>
+                            <Link className="btn" to={`/comments/${item.id}`}>View Comments</Link>
+                        </div>
                     </div>
                 )
             })}
